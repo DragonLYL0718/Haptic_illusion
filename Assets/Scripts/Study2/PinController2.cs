@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
 public class PinController2 : MonoBehaviour
@@ -7,7 +9,6 @@ public class PinController2 : MonoBehaviour
     //locate trackers
     public GameObject leftBottomCorner;
     public GameObject rightBottomCorner;
-    private Vector3 ColibrationVector;
     private bool ShoeCalibrated = false;
 
     private float distanceBetweenTrackers;
@@ -27,7 +28,7 @@ public class PinController2 : MonoBehaviour
     public GameObject sphere;
     public GameObject rod;
     public GameObject floor;
-    private float RodStartX = 10;
+    private readonly float RodStartX = 10;
     [SerializeField]
     private Vector3 RodStartPosition;
 
@@ -57,21 +58,28 @@ public class PinController2 : MonoBehaviour
     }
     public InputMode inputMode;
 
-    private Vector3 sphereStartScale = new Vector3(6, 6, 6);
+    private readonly Vector3 sphereStartScale = new Vector3(6, 6, 6);
+
+    private string filename;
+    private TextWriter tw;
+    private string userID;
+    private bool RecordFlag = false;
 
     void Update()
     {
         Initialize();
+
         if (!ShoeCalibrated)
-        {
             if (Input.GetKeyDown(KeyCode.K))
             {
                 CalibratedShoe();
                 ShoeCalibrated = true;
             }
-        }
+
+
         ChooseGeometry();
         Retarget();
+        RecordFoot();
     }
 
     private void Initialize()
@@ -80,15 +88,19 @@ public class PinController2 : MonoBehaviour
         {
             //scale to match physical stick
             distanceBetweenTrackers = Vector3.Distance(leftBottomCorner.transform.position, rightBottomCorner.transform.position);
-            ColibrationVector = rightBottomCorner.transform.position - leftBottomCorner.transform.position;
 
             //Redefine floor coordinates 
             floor.transform.localScale = new Vector3(0.1f * distanceBetweenTrackers, 0.1f * distanceBetweenTrackers, 0.1f * distanceBetweenTrackers);
             floor.transform.position = (leftBottomCorner.transform.position + rightBottomCorner.transform.position)/2 - 
                                   Vector3.Cross((leftBottomCorner.transform.position - rightBottomCorner.transform.position), Vector3.up).normalized * distanceBetweenTrackers / 2;
             floor.transform.RotateAround(floor.transform.position, Vector3.up, + Vector3.SignedAngle(Vector3.right, (rightBottomCorner.transform.position - leftBottomCorner.transform.position), Vector3.up));
-
             RodStartPosition = rod.transform.localPosition;
+
+            userID = GetComponent<SurveySystem2>().userID;
+            filename = "C:/Users/MAKinteract_Leopard/Documents/sole_data_" + userID + ".csv";
+            tw = new StreamWriter(filename, false);
+            tw.WriteLine("Time, Study Part, Sample, Trial Number, In progress, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, No Touch");
+            tw.Close();
 
             isInitialized = true;
         }
@@ -159,20 +171,18 @@ public class PinController2 : MonoBehaviour
     //Angle redirection
     private Vector3 Rotate(Vector3 vector, float angle)
     {
-        float x ;
-        float y ;
-        float z ;
-        float zOffset;
+        float x, y, z, zOffset;
         Vector3 newPosition, RelativePosition;
-        RelativePosition = vector - rod.transform.position;
-        RelativePosition = Quaternion.AngleAxis(floor.transform.localRotation.y, Vector3.up) * RelativePosition;
+
+        vector = floor.transform.InverseTransformPoint(vector);
+        RelativePosition = vector - rod.transform.localPosition;
         x = RelativePosition.x;
         y = RelativePosition.y;
         z = RelativePosition.z;
-        zOffset = (x - rod.transform.position.x) * Mathf.Tan(Mathf.Deg2Rad * angle * 1.0f);
+        zOffset = (x - rod.transform.localPosition.x) * Mathf.Tan(Mathf.Deg2Rad * angle);
         RelativePosition = new Vector3(x, y, z - zOffset + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f);
-        RelativePosition = Quaternion.AngleAxis(-floor.transform.localRotation.y, Vector3.up) * RelativePosition;
-        newPosition = rod.transform.position + RelativePosition;
+        RelativePosition += rod.transform.localPosition;
+        newPosition = floor.transform.TransformPoint(RelativePosition);
 
         return newPosition;
     }
@@ -180,7 +190,12 @@ public class PinController2 : MonoBehaviour
     //Scale up redirection
     private Vector3 ScaleUp(Vector3 vector, float scale)
     {
-        Vector3 newPosition = new Vector3((sphere.transform.position.x + (vector.x - sphere.transform.position.x) / scale), (sphere.transform.position.y + (vector.y - sphere.transform.position.y) / scale), (sphere.transform.position.z + (vector.z - sphere.transform.position.z) / scale));
+        Vector3 newPosition;
+
+        vector = floor.transform.InverseTransformPoint(vector);
+        newPosition = new Vector3((sphere.transform.position.x + (vector.x - sphere.transform.position.x) / scale), (sphere.transform.position.y + (vector.y - sphere.transform.position.y) / scale), (sphere.transform.position.z + (vector.z - sphere.transform.position.z) / scale));
+        newPosition = floor.transform.TransformPoint(newPosition);
+
         return newPosition;
     }
 
@@ -220,10 +235,10 @@ public class PinController2 : MonoBehaviour
             switch (type)
             {
                 case RetargetingType.ScalingUp:
-                    retargetedPosition.transform.position = ScaleUp(tracker.gameObject.transform.position, scale);
+                    retargetedPosition.transform.position = ScaleUp(tracker.transform.position, scale);
                     break;
                 case RetargetingType.Rotation:
-                    retargetedPosition.transform.position = Rotate(tracker.gameObject.transform.position, angle);
+                    retargetedPosition.transform.position = Rotate(tracker.transform.position, angle);
                     break;
                 default:
                     break;
@@ -239,8 +254,24 @@ public class PinController2 : MonoBehaviour
     //Redirecting tracker
     private void Retarget()
     {
-        retargetedPosition.transform.rotation = tracker.gameObject.transform.rotation;
+        retargetedPosition.transform.rotation = tracker.transform.rotation;
         ChooseInputMode();
         ChooseRedirectionType();
+    }
+
+    private void RecordFoot()
+    {
+        RecordFlag = GetComponent<SurveySystem2>().RecordFlag;
+        if (RecordFlag)
+        {
+            if (Randomize2.illusions[SurveySystem2.number])
+            {
+
+            }
+            else
+            { 
+                
+            }
+        }
     }
 }

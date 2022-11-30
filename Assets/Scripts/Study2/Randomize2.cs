@@ -5,8 +5,8 @@ using UnityEngine;
 public class Randomize2 : MonoBehaviour
 {
     [HideInInspector]
-    private float[] angleSamples = {10, 10, 20, 20, 30, 30, 40, 40};
-    private float[] scaleSamples = {1.15f, 1.15f, 1.3f, 1.3f, 1.45f, 1.45f, 1.6f, 1.6f};
+    private readonly float[] angleSamples = {10, 10, 20, 20, 30, 30, 40, 40};
+    private readonly float[] scaleSamples = {1.15f, 1.15f, 1.3f, 1.3f, 1.45f, 1.45f, 1.6f, 1.6f};
     public static float[] samples = new float[16];
     public static bool[] illusions = new bool[16];
 
@@ -51,18 +51,6 @@ public class Randomize2 : MonoBehaviour
         for (int t = 0; t < array.Length; t++)
         {
             float tmp = array[t];
-            int r = Random.Range(t, array.Length);
-            array[t] = array[r];
-            array[r] = tmp;
-        }
-    }
-
-    private void Randomize(bool[] array)
-    {
-        //shuffling array elements
-        for (int t = 0; t < array.Length; t++)
-        {
-            bool tmp = array[t];
             int r = Random.Range(t, array.Length);
             array[t] = array[r];
             array[r] = tmp;

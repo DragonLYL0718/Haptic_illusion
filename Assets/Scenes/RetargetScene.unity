@@ -296,7 +296,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1686131133}
         m_TargetAssemblyTypeName: SurveySystem2, Assembly-CSharp
-        m_MethodName: answerFirstQuestion
+        m_MethodName: AnswerFirstQuestion
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -580,7 +580,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 41401195}
   m_OnClick:
     m_PersistentCalls:
@@ -871,7 +871,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1686131133}
         m_TargetAssemblyTypeName: SurveySystem2, Assembly-CSharp
-        m_MethodName: answerSecondQuestion
+        m_MethodName: AnswerSecondQuestion
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1645,7 +1645,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1686131133}
         m_TargetAssemblyTypeName: SurveySystem2, Assembly-CSharp
-        m_MethodName: answerThirdQuestion
+        m_MethodName: AnswerThirdQuestion
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1911,8 +1911,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683246367}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -4.75}
-  m_LocalScale: {x: 10, y: 1, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -4.75}
+  m_LocalScale: {x: 10, y: 2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2051137374}
   m_RootOrder: 2
@@ -2120,7 +2120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.499}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &746013831
@@ -2262,7 +2262,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 759425495}
   m_OnClick:
     m_PersistentCalls:
@@ -2326,7 +2326,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 1266597363}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -2338,7 +2338,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &759425495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,7 +2442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 4
+  index: 1
   origin: {fileID: 0}
 --- !u!4 &845098233
 Transform:
@@ -2756,6 +2756,7 @@ GameObject:
   - component: {fileID: 928543139}
   - component: {fileID: 928543138}
   - component: {fileID: 928543137}
+  - component: {fileID: 928543140}
   m_Layer: 0
   m_Name: LeftCornor
   m_TagString: Untagged
@@ -2839,6 +2840,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928543135}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &928543140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928543135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 3
+  origin: {fileID: 0}
 --- !u!1 &977274263
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,7 +3116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064346677}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: 10}
+  m_LocalPosition: {x: 0, y: 20, z: 15}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 977274264}
@@ -3866,7 +3881,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1428084018}
   m_OnClick:
     m_PersistentCalls:
@@ -3896,16 +3911,16 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 1
       - m_Target: {fileID: 1100974152}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
-        m_MethodName: 
-        m_Mode: 1
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 1
 --- !u!114 &1428084018
 MonoBehaviour:
@@ -4831,7 +4846,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1686131133}
         m_TargetAssemblyTypeName: SurveySystem2, Assembly-CSharp
-        m_MethodName: answerSecondQuestion
+        m_MethodName: AnswerSecondQuestion
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5019,7 +5034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userID: P7
   totalTime: 0
-  timeRemaining: 20
+  timeRemaining: 0
   trialNumber: 0
   trialBox: {fileID: 1874332569}
   trialNumberText: {fileID: 1664879783}
@@ -5065,7 +5080,7 @@ MonoBehaviour:
   rod: {fileID: 683246367}
   floor: {fileID: 2051137369}
   RodStartPosition: {x: 0, y: 0, z: 0}
-  geometry: 1
+  geometry: 0
   type: 0
   tracker: {fileID: 845098231}
   retargetedPosition: {fileID: 1633122565}
@@ -5302,6 +5317,7 @@ GameObject:
   - component: {fileID: 1689972426}
   - component: {fileID: 1689972425}
   - component: {fileID: 1689972424}
+  - component: {fileID: 1689972427}
   m_Layer: 0
   m_Name: RightCornor
   m_TagString: Untagged
@@ -5385,6 +5401,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689972422}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1689972427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689972422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
+  origin: {fileID: 0}
 --- !u!1 &1745222906
 GameObject:
   m_ObjectHideFlags: 0
@@ -5617,7 +5647,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1686131133}
         m_TargetAssemblyTypeName: SurveySystem2, Assembly-CSharp
-        m_MethodName: answerFirstQuestion
+        m_MethodName: AnswerFirstQuestion
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5767,7 +5797,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1686131133}
         m_TargetAssemblyTypeName: SurveySystem2, Assembly-CSharp
-        m_MethodName: answerThirdQuestion
+        m_MethodName: AnswerThirdQuestion
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5962,7 +5992,7 @@ Transform:
   m_GameObject: {fileID: 1865153706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.001, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 5, y: 10, z: 5}
   m_Children: []
   m_Father: {fileID: 2051137374}
   m_RootOrder: 0
@@ -6068,7 +6098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.061}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1874332571

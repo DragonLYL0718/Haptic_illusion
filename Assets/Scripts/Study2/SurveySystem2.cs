@@ -28,6 +28,9 @@ public class SurveySystem2 : MonoBehaviour
     //check if it is waiting time
     [HideInInspector]
     public static bool isWaiting = true;
+    //Whether to record the position of the foot
+    [HideInInspector]
+    public bool RecordFlag = false;
 
     //test time for illusion
     private float timeWithIllusion;
@@ -117,6 +120,7 @@ public class SurveySystem2 : MonoBehaviour
                 else
                 {
                     //Debug.Log("4");
+                    RecordFlag = true;
                     instructionBoxText.text = "Please, explore the virtual object from right to left";
                     waitingBoxText.text = "GO";
                     waitingBoxText.color = Color.black;
@@ -166,9 +170,12 @@ public class SurveySystem2 : MonoBehaviour
         if (inputEnabled)
         {   
             //if (clickAction.GetStateDown(inputSource) || Input.GetKeyDown("space"))
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log(totalTime);
+
+                RecordFlag = false;
+
                 if (Randomize2.illusions[number] == true)
                 {
                     timeWithIllusion = totalTime;
@@ -206,8 +213,8 @@ public class SurveySystem2 : MonoBehaviour
                 UserDataEntry2 dataEntry = GetAnswers();
                 Debug.Log(trialNumber + " " + dataEntry.firstAnswer + " " + dataEntry.secondAnswer + " " + dataEntry.thirdAnswer);
                 userDatabase.dataList.Add(dataEntry);
-                xmlManager.SaveItems(userDatabase, userID);
-                Debug.Log("saved");
+                //xmlManager.SaveItems(userDatabase, userID);
+                //Debug.Log("saved");
             }
             number++;
             timeRemaining = oneTrialTime;
@@ -217,12 +224,14 @@ public class SurveySystem2 : MonoBehaviour
 
         if (number == Randomize2.samples.Length)
         {
+            xmlManager.SaveItems(userDatabase, userID);
+            Debug.Log("saved");
             instructionBox.SetActive(false);
             trialBox.SetActive(false);
         }
     }
 
-    public void answerFirstQuestion(bool answer)
+    public void AnswerFirstQuestion(bool answer)
     {
         if (answer)
         {
@@ -233,7 +242,7 @@ public class SurveySystem2 : MonoBehaviour
             firstAnswer = 2;
         }
     }
-    public void answerSecondQuestion(bool answer)
+    public void AnswerSecondQuestion(bool answer)
     {
         if (answer)
         {
@@ -244,7 +253,7 @@ public class SurveySystem2 : MonoBehaviour
             secondAnswer = 2;
         }
     }
-    public void answerThirdQuestion(bool answer)
+    public void AnswerThirdQuestion(bool answer)
     {
         if (answer)
         {
@@ -258,16 +267,18 @@ public class SurveySystem2 : MonoBehaviour
 
     public UserDataEntry2 GetAnswers()
     {
-        UserDataEntry2 dataEntry = new UserDataEntry2();
-        dataEntry.number = (number + 1) / 2;
-        dataEntry.sample = (Randomize2.samples[number] >= 1 && Randomize2.samples[number] <= 2) ? (2 / Randomize2.samples[number]) : Randomize2.samples[number];
-        dataEntry.IllusionSample = (Randomize2.illusions[number]) ? 2 : 1;
-        dataEntry.timeWithIllusion = timeWithIllusion;
-        dataEntry.timeWithoutIllusion = timeWithoutIllusion;
-        dataEntry.answerTime = totalTime;
-        dataEntry.firstAnswer = firstAnswer;
-        dataEntry.secondAnswer = secondAnswer;
-        dataEntry.thirdAnswer = thirdAnswer;
+        UserDataEntry2 dataEntry = new UserDataEntry2
+        {
+            number = (number + 1) / 2,
+            sample = (Randomize2.samples[number] >= 1 && Randomize2.samples[number] <= 2) ? (2 / Randomize2.samples[number]) : Randomize2.samples[number],
+            IllusionSample = (Randomize2.illusions[number]) ? 2 : 1,
+            timeWithIllusion = timeWithIllusion,
+            timeWithoutIllusion = timeWithoutIllusion,
+            answerTime = totalTime,
+            firstAnswer = firstAnswer,
+            secondAnswer = secondAnswer,
+            thirdAnswer = thirdAnswer
+        };
 
         return dataEntry;
     }

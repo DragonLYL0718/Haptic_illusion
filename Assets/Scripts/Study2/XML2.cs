@@ -8,10 +8,11 @@ using UnityEngine;
 
 public class XML2 : MonoBehaviour
 {
+
     public void SaveItems(UserDatabase2 userDatabase, string userID)
     {
         XmlSerializer serializer = new XmlSerializer(typeof(UserDatabase2));
-        FileStream fileStream = new FileStream("./UserData/user_data_" + userID + ".xml", FileMode.OpenOrCreate);
+        FileStream fileStream = new FileStream("./UserLog/user_data_" + userID + ".xml", FileMode.OpenOrCreate);
         serializer.Serialize(fileStream, userDatabase);
         fileStream.Close();
     }
