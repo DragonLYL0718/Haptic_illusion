@@ -213,8 +213,8 @@ public class SurveySystem2 : MonoBehaviour
                 UserDataEntry2 dataEntry = GetAnswers();
                 Debug.Log(trialNumber + " " + dataEntry.firstAnswer + " " + dataEntry.secondAnswer + " " + dataEntry.thirdAnswer);
                 userDatabase.dataList.Add(dataEntry);
-                //xmlManager.SaveItems(userDatabase, userID);
-                //Debug.Log("saved");
+                xmlManager.SaveItems(userDatabase, userID);
+                Debug.Log("saved");
             }
             number++;
             timeRemaining = oneTrialTime;
@@ -224,8 +224,8 @@ public class SurveySystem2 : MonoBehaviour
 
         if (number == Randomize2.samples.Length)
         {
-            xmlManager.SaveItems(userDatabase, userID);
-            Debug.Log("saved");
+            //xmlManager.SaveItems(userDatabase, userID);
+            //Debug.Log("saved");
             instructionBox.SetActive(false);
             trialBox.SetActive(false);
         }

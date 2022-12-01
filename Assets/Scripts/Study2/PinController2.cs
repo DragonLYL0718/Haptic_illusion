@@ -4,6 +4,8 @@ using System.IO;
 //using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.XR.ARSubsystems;
 
 public class PinController2 : MonoBehaviour
 {
@@ -120,12 +122,12 @@ public class PinController2 : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.K))
             {
                 float ScaleSize;
-                //sole.transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(-sole.transform.localRotation.x, -sole.transform.localRotation.y, -sole.transform.localRotation.z));
-                
-                sole.transform.GetChild(0).localPosition = new Vector3(0, -sole.transform.localPosition.y, 0);
+                sole.transform.GetChild(0).SetPositionAndRotation(new Vector3(tracker.transform.position.x, 0, tracker.transform.position.z), Quaternion.Euler(new Vector3(0, 0, 0)));
                 Debug.Log(sole.transform.localPosition.y);
                 ScaleSize = FootLength / (600f / 36f);
                 sole.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
+                ScaleSize = FootLength / (600f / 3.7f);
+                retargetedPosition.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
                 ShoeCalibrated = true;
             }
         }     
@@ -255,29 +257,29 @@ public class PinController2 : MonoBehaviour
             switch (type)
             {
                 case RetargetingType.ScalingUp:
-                    retargetedPosition.transform.position = ScaleUp(tracker.transform.position, scale);
+                    retargetedPosition.transform.position = ScaleUp(sole.transform.GetChild(0).position, scale);
                     break;
                 case RetargetingType.Rotation:
-                    retargetedPosition.transform.position = Rotate(tracker.transform.position, angle);
+                    retargetedPosition.transform.position = Rotate(sole.transform.GetChild(0).position, angle);
                     break;
                 default:
                     break;
             }
         }
         else
-            retargetedPosition.transform.position = tracker.transform.position;
+            retargetedPosition.transform.position = sole.transform.GetChild(0).position;
 
         if(inputMode == InputMode.Manual)
-            retargetedPosition.transform.position = tracker.transform.position;
+            retargetedPosition.transform.position = sole.transform.GetChild(0).position;
     }
 
     //Redirecting tracker
     private void Retarget()
     {
-        retargetedPosition.transform.localPosition = tracker.transform.localPosition;
-        retargetedPosition.transform.rotation = tracker.transform.rotation;
         sole.transform.localPosition = floor.transform.InverseTransformPoint(tracker.transform.position);
         sole.transform.rotation = tracker.transform.rotation;
+        retargetedPosition.transform.rotation = sole.transform.GetChild(0).rotation;
+
         ChooseInputMode();
         ChooseRedirectionType();
     }
@@ -303,9 +305,9 @@ public class PinController2 : MonoBehaviour
         int[] soleHit = new int[7];
 
         if (Randomize2.illusions[SurveySystem2.number])
-            ContactDistant = 3f + DeltaScaleUp;
+            ContactDistant = 0.3f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
         else
-            ContactDistant = 3f * scale + DeltaScaleUp;
+            ContactDistant = 0.3f * scale * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
 
         for(int i = 0; i < 6; i++) 
         {
@@ -343,7 +345,7 @@ public class PinController2 : MonoBehaviour
 
     private bool IsSoleContact(int i, float Distant)
     {
-        if(Vector3.Distance(sole.transform.GetChild(0).GetChild(i).localPosition, floor.transform.position) < Distant)
+        if(Vector3.Distance(sole.transform.GetChild(0).GetChild(i).position, floor.transform.position) < Distant)
             return true;
         else
             return false;
@@ -351,18 +353,20 @@ public class PinController2 : MonoBehaviour
 
     private bool IsSoleContact(int i)
     {
-        if(sole.transform.GetChild(0).GetChild(i).position.y < 1f + DeltaRotation)
+        Vector3 ReferencePoint = floor.transform.InverseTransformPoint(sole.transform.GetChild(0).GetChild(i).position);
+        if(ReferencePoint.y < 1f + DeltaRotation)
         {
+            Debug.Log("1");
             if (Randomize2.illusions[SurveySystem2.number])
             {
-                if(sole.transform.GetChild(0).GetChild(i).position.z > -(5 + DeltaRotation) && sole.transform.GetChild(0).GetChild(i).position.z < -(4.5 - DeltaRotation))
+                if(ReferencePoint.z > -(5 + DeltaRotation) && ReferencePoint.z < -(4.5 - DeltaRotation))
                     return true;
             }
             else
             {
-                float ReferencePoint = -5 + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f;
-                if(sole.transform.GetChild(0).GetChild(i).position.z > ReferencePoint - 0.5 - DeltaRotation - sole.transform.GetChild(0).GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
-                    sole.transform.GetChild(0).GetChild(i).position.z < ReferencePoint + 0.5 + DeltaRotation - sole.transform.GetChild(0).GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle))
+                float RelativeLength = -5 + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f;
+                if(ReferencePoint.z > RelativeLength - 0.5 - DeltaRotation - ReferencePoint.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
+                    ReferencePoint.z < RelativeLength + 0.5 + DeltaRotation - ReferencePoint.x * Mathf.Tan(Mathf.Deg2Rad * angle))
                     return true;
             }
         }
