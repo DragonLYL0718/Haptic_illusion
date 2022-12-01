@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+//using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class PinController2 : MonoBehaviour
     public GameObject leftBottomCorner;
     public GameObject rightBottomCorner;
     private bool ShoeCalibrated = false;
+    [Range(200, 300)]
+    public float FootLength = 250;
 
     private float distanceBetweenTrackers;
 
@@ -114,7 +117,12 @@ public class PinController2 : MonoBehaviour
     {
         if (!ShoeCalibrated)
             if (Input.GetKeyDown(KeyCode.K))
-            { 
+            {
+                float ScaleSize;
+                sole.transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(-tracker.transform.rotation.x, -tracker.transform.rotation.y, -tracker.transform.rotation.z));
+                sole.transform.GetChild(0).position = new Vector3(0, -tracker.transform.position.y, 0);
+                ScaleSize = FootLength / (600f / 36f);
+                sole.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
                 ShoeCalibrated = true;
             }
     }
@@ -262,7 +270,10 @@ public class PinController2 : MonoBehaviour
     //Redirecting tracker
     private void Retarget()
     {
+        retargetedPosition.transform.localPosition = tracker.transform.localPosition;
         retargetedPosition.transform.rotation = tracker.transform.rotation;
+        sole.transform.localPosition = floor.transform.InverseTransformDirection(tracker.transform.position);
+        sole.transform.rotation = tracker.transform.rotation;
         ChooseInputMode();
         ChooseRedirectionType();
     }
@@ -336,18 +347,18 @@ public class PinController2 : MonoBehaviour
 
     private bool IsSoleContact(int i)
     {
-        if(sole.transform.GetChild(i).position.y < 1f + DeltaRotation)
+        if(sole.transform.GetChild(0).GetChild(i).position.y < 1f + DeltaRotation)
         {
             if (Randomize2.illusions[SurveySystem2.number])
             {
-                if(sole.transform.GetChild(i).position.z > -(5 + DeltaRotation) && sole.transform.GetChild(i).position.z < -(4.5 - DeltaRotation))
+                if(sole.transform.GetChild(0).GetChild(i).position.z > -(5 + DeltaRotation) && sole.transform.GetChild(0).GetChild(i).position.z < -(4.5 - DeltaRotation))
                     return true;
             }
             else
             {
                 float ReferencePoint = -5 + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f;
-                if(sole.transform.GetChild(i).position.z > ReferencePoint - 0.5 - DeltaRotation - sole.transform.GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
-                    sole.transform.GetChild(i).position.z < ReferencePoint + 0.5 + DeltaRotation - sole.transform.GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle))
+                if(sole.transform.GetChild(0).GetChild(i).position.z > ReferencePoint - 0.5 - DeltaRotation - sole.transform.GetChild(0).GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
+                    sole.transform.GetChild(0).GetChild(i).position.z < ReferencePoint + 0.5 + DeltaRotation - sole.transform.GetChild(0).GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle))
                     return true;
             }
         }
