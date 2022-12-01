@@ -116,15 +116,19 @@ public class PinController2 : MonoBehaviour
     private void CalibratedShoe()
     {
         if (!ShoeCalibrated)
+        {
             if (Input.GetKeyDown(KeyCode.K))
             {
                 float ScaleSize;
-                sole.transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(-tracker.transform.rotation.x, -tracker.transform.rotation.y, -tracker.transform.rotation.z));
-                sole.transform.GetChild(0).position = new Vector3(0, -tracker.transform.position.y, 0);
+                //sole.transform.GetChild(0).localRotation = Quaternion.Euler(new Vector3(-sole.transform.localRotation.x, -sole.transform.localRotation.y, -sole.transform.localRotation.z));
+                
+                sole.transform.GetChild(0).localPosition = new Vector3(0, -sole.transform.localPosition.y, 0);
+                Debug.Log(sole.transform.localPosition.y);
                 ScaleSize = FootLength / (600f / 36f);
                 sole.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
                 ShoeCalibrated = true;
             }
+        }     
     }
 
     //Sphere, Rod, Stairs
@@ -272,7 +276,7 @@ public class PinController2 : MonoBehaviour
     {
         retargetedPosition.transform.localPosition = tracker.transform.localPosition;
         retargetedPosition.transform.rotation = tracker.transform.rotation;
-        sole.transform.localPosition = floor.transform.InverseTransformDirection(tracker.transform.position);
+        sole.transform.localPosition = floor.transform.InverseTransformPoint(tracker.transform.position);
         sole.transform.rotation = tracker.transform.rotation;
         ChooseInputMode();
         ChooseRedirectionType();
@@ -339,7 +343,7 @@ public class PinController2 : MonoBehaviour
 
     private bool IsSoleContact(int i, float Distant)
     {
-        if(Vector3.Distance(tracker.transform.GetChild(i).localPosition, floor.transform.position) < Distant)
+        if(Vector3.Distance(sole.transform.GetChild(0).GetChild(i).localPosition, floor.transform.position) < Distant)
             return true;
         else
             return false;
