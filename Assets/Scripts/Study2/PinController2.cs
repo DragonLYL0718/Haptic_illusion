@@ -28,6 +28,7 @@ public class PinController2 : MonoBehaviour
     public GameObject sphere;
     public GameObject rod;
     public GameObject floor;
+    public GameObject sole;
     private readonly float RodStartX = 10;
     [SerializeField]
     private Vector3 RodStartPosition;
@@ -63,20 +64,18 @@ public class PinController2 : MonoBehaviour
     private string filename;
     private TextWriter tw;
     private string userID;
-    private bool RecordFlag = false;
+
+    [Range(0, 1f)]
+    public float DeltaScaleUp;
+    [Range(0, 1f)]
+    public float DeltaRotation;
+    private float RecordTime = 0;
+    private string StudyPart;
 
     void Update()
     {
         Initialize();
-
-        if (!ShoeCalibrated)
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                CalibratedShoe();
-                ShoeCalibrated = true;
-            }
-
-
+        CalibratedShoe();
         ChooseGeometry();
         Retarget();
         RecordFoot();
@@ -97,18 +96,27 @@ public class PinController2 : MonoBehaviour
             RodStartPosition = rod.transform.localPosition;
 
             userID = GetComponent<SurveySystem2>().userID;
-            filename = "C:/Users/MAKinteract_Leopard/Documents/sole_data_" + userID + ".csv";
+            filename = "./UserLog/sole_data_" + userID + ".csv";
             tw = new StreamWriter(filename, false);
-            tw.WriteLine("Time, Study Part, Sample, Trial Number, In progress, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, No Touch");
+            tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, No Touch");
             tw.Close();
+
+            if (type == RetargetingType.ScalingUp)
+                StudyPart = "ScalingUp";
+            else
+                StudyPart = "Rotation";
 
             isInitialized = true;
         }
     }
 
     private void CalibratedShoe()
-    { 
-        
+    {
+        if (!ShoeCalibrated)
+            if (Input.GetKeyDown(KeyCode.K))
+            { 
+                ShoeCalibrated = true;
+            }
     }
 
     //Sphere, Rod, Stairs
@@ -261,17 +269,89 @@ public class PinController2 : MonoBehaviour
 
     private void RecordFoot()
     {
-        RecordFlag = GetComponent<SurveySystem2>().RecordFlag;
-        if (RecordFlag)
+        RecordTime += Time.deltaTime;
+
+        if (SurveySystem2.RecordFlag)
+        {
+            if (type == RetargetingType.ScalingUp)
+                RecordScaleUpFoot();
+            else
+                RecordRotateFoot();
+        }
+        else
+            RecordTime = 0;
+    }
+
+    private void RecordScaleUpFoot()
+    {
+        float ContactDistant;
+        int[] soleHit = new int[7];
+
+        if (Randomize2.illusions[SurveySystem2.number])
+            ContactDistant = 3f + DeltaScaleUp;
+        else
+            ContactDistant = 3f * scale + DeltaScaleUp;
+
+        for(int i = 0; i < 6; i++) 
+        {
+            if(IsSoleContact(i, ContactDistant))
+            {
+                soleHit[i] = 1;
+                soleHit[6]++;
+            }
+        }
+
+        tw = new StreamWriter(filename, true);
+        tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + scale + "," + Randomize2.illusions[SurveySystem2.number] 
+            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+        tw.Close();
+    }
+
+    private void RecordRotateFoot()
+    {
+        int[] soleHit = new int[7];
+
+        for (int i = 0; i < 6; i++)
+        {
+            if(IsSoleContact(i))
+            {
+                soleHit[i] = 1;
+                soleHit[6]++;
+            }
+        }
+
+        tw = new StreamWriter(filename, true);
+        tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + angle + "," + Randomize2.illusions[SurveySystem2.number]
+            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+        tw.Close();
+    }
+
+    private bool IsSoleContact(int i, float Distant)
+    {
+        if(Vector3.Distance(tracker.transform.GetChild(i).localPosition, floor.transform.position) < Distant)
+            return true;
+        else
+            return false;
+    }
+
+    private bool IsSoleContact(int i)
+    {
+        if(sole.transform.GetChild(i).position.y < 1f + DeltaRotation)
         {
             if (Randomize2.illusions[SurveySystem2.number])
             {
-
+                if(sole.transform.GetChild(i).position.z > -(5 + DeltaRotation) && sole.transform.GetChild(i).position.z < -(4.5 - DeltaRotation))
+                    return true;
             }
             else
-            { 
-                
+            {
+                float ReferencePoint = -5 + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f;
+                if(sole.transform.GetChild(i).position.z > ReferencePoint - 0.5 - DeltaRotation - sole.transform.GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
+                    sole.transform.GetChild(i).position.z < ReferencePoint + 0.5 + DeltaRotation - sole.transform.GetChild(i).position.x * Mathf.Tan(Mathf.Deg2Rad * angle))
+                    return true;
             }
         }
+
+        return false;
     }
 }

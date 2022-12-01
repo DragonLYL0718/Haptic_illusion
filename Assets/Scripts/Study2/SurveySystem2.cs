@@ -30,7 +30,7 @@ public class SurveySystem2 : MonoBehaviour
     public static bool isWaiting = true;
     //Whether to record the position of the foot
     [HideInInspector]
-    public bool RecordFlag = false;
+    public static bool RecordFlag = false;
 
     //test time for illusion
     private float timeWithIllusion;
