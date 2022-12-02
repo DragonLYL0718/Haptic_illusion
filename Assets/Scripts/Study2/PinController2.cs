@@ -86,6 +86,7 @@ public class PinController2 : MonoBehaviour
         RecordFoot();
     }
 
+    //Initialize floor and all of floor's sub-objects
     private void Initialize()
     {
         if (!isInitialized)
@@ -100,6 +101,7 @@ public class PinController2 : MonoBehaviour
             floor.transform.RotateAround(floor.transform.position, Vector3.up, + Vector3.SignedAngle(Vector3.right, (rightBottomCorner.transform.position - leftBottomCorner.transform.position), Vector3.up));
             RodStartPosition = rod.transform.localPosition;
 
+            //Initialize CSV file
             userID = GetComponent<SurveySystem2>().userID;
             filename = "./UserLog/sole_data_" + userID + ".csv";
             tw = new StreamWriter(filename, false);
@@ -115,6 +117,7 @@ public class PinController2 : MonoBehaviour
         }
     }
 
+    //Calibrate the shoe and sole
     private void CalibratedShoe()
     {
         if (!ShoeCalibrated)
@@ -133,7 +136,7 @@ public class PinController2 : MonoBehaviour
         }     
     }
 
-    //Sphere, Rod, Stairs
+    //Sphere, Rod
     private void ChooseGeometry()
     {
         //Choose the geometry 
@@ -250,6 +253,7 @@ public class PinController2 : MonoBehaviour
         }
     }
 
+    //Get the position of the right shoe in the VR
     private void ChooseRedirectionType()
     {
         if(Randomize2.illusions[SurveySystem2.number])
@@ -284,6 +288,7 @@ public class PinController2 : MonoBehaviour
         ChooseRedirectionType();
     }
 
+    //Record which part of foot contact the Sphere or Rod
     private void RecordFoot()
     {
         RecordTime += Time.deltaTime;
@@ -299,6 +304,7 @@ public class PinController2 : MonoBehaviour
             RecordTime = 0;
     }
 
+    //Shpere
     private void RecordScaleUpFoot()
     {
         float ContactDistant;
@@ -324,6 +330,7 @@ public class PinController2 : MonoBehaviour
         tw.Close();
     }
 
+    //Rod
     private void RecordRotateFoot()
     {
         int[] soleHit = new int[7];
@@ -343,6 +350,7 @@ public class PinController2 : MonoBehaviour
         tw.Close();
     }
 
+    //Sphere
     private bool IsSoleContact(int i, float Distant)
     {
         if(Vector3.Distance(sole.transform.GetChild(0).GetChild(i).position, floor.transform.position) < Distant)
@@ -351,6 +359,7 @@ public class PinController2 : MonoBehaviour
             return false;
     }
 
+    //Rod
     private bool IsSoleContact(int i)
     {
         Vector3 ReferencePoint = floor.transform.InverseTransformPoint(sole.transform.GetChild(0).GetChild(i).position);
