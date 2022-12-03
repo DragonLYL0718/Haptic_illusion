@@ -54,7 +54,6 @@ public class PinController2 : MonoBehaviour
     public RetargetingType type;
 
     //virtual image (red ball) of actual position(white ball)
-    public GameObject tracker;
     public GameObject retargetedPosition;
 
     public enum InputMode
@@ -125,12 +124,15 @@ public class PinController2 : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.K))
             {
                 float ScaleSize;
-                sole.transform.GetChild(0).SetPositionAndRotation(new Vector3(tracker.transform.position.x, 0, tracker.transform.position.z), Quaternion.Euler(new Vector3(0, 0, 0)));
-                Debug.Log(sole.transform.localPosition.y);
+
                 ScaleSize = FootLength / (600f / 36f);
                 sole.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
                 ScaleSize = FootLength / (600f / 3.7f);
                 retargetedPosition.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
+
+                sole.transform.GetChild(0).position = new Vector3(transform.position.x, floor.transform.position.y, transform.position.z);
+                sole.transform.GetChild(0).forward = -Vector3.Cross((leftBottomCorner.transform.position - rightBottomCorner.transform.position), Vector3.up);
+
                 ShoeCalibrated = true;
             }
         }     
@@ -280,8 +282,7 @@ public class PinController2 : MonoBehaviour
     //Redirecting tracker
     private void Retarget()
     {
-        sole.transform.localPosition = floor.transform.InverseTransformPoint(tracker.transform.position);
-        sole.transform.rotation = tracker.transform.rotation;
+        sole.transform.SetPositionAndRotation(transform.position, transform.rotation);
         retargetedPosition.transform.rotation = sole.transform.GetChild(0).rotation;
 
         ChooseInputMode();

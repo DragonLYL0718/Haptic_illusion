@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.elevate2_3d.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\User\\Desktop\\haptic_illusion-master\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\User\\Desktop\\Work\\Elevate\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Elevate2_3d [Testing]"
