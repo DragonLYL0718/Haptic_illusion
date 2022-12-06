@@ -329,6 +329,8 @@ public class PinController2 : MonoBehaviour
         tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + scale + "," + Randomize2.illusions[SurveySystem2.number] 
             + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
         tw.Close();
+
+        Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
     }
 
     //Rod
@@ -349,6 +351,8 @@ public class PinController2 : MonoBehaviour
         tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + angle + "," + Randomize2.illusions[SurveySystem2.number]
             + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
         tw.Close();
+
+        Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
     }
 
     //Sphere
@@ -364,7 +368,7 @@ public class PinController2 : MonoBehaviour
     private bool IsSoleContact(int i)
     {
         Vector3 ReferencePoint = floor.transform.InverseTransformPoint(sole.transform.GetChild(0).GetChild(i).position);
-        if(ReferencePoint.y < 1f + DeltaRotation)
+        if(ReferencePoint.y < 1f + DeltaRotation && ReferencePoint.x < 5 + DeltaRotation && ReferencePoint.x > -5 - DeltaRotation)
         {
             Debug.Log("1");
             if (Randomize2.illusions[SurveySystem2.number])
