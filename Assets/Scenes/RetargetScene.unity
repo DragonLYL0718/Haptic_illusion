@@ -5249,8 +5249,8 @@ MonoBehaviour:
   geometry: 0
   type: 0
   retargetedPosition: {fileID: 1633122565}
-  inputMode: 0
-  DeltaScaleUp: 0.6
+  inputMode: 1
+  DeltaScaleUp: 0.3
   DeltaRotation: 0.6
 --- !u!82 &1686131136
 AudioSource:
@@ -5594,7 +5594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
+  index: 2
   origin: {fileID: 0}
 --- !u!1 &1745222906
 GameObject:

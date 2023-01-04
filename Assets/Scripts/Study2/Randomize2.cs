@@ -6,7 +6,7 @@ public class Randomize2 : MonoBehaviour
 {
     [HideInInspector]
     private readonly float[] angleSamples = {10, 10, 20, 20, 30, 30, 40, 40};
-    private readonly float[] scaleSamples = {1.15f, 1.15f, 1.3f, 1.3f, 1.45f, 1.45f, 1.6f, 1.6f};
+    private readonly float[] scaleSamples = {1.08f, 1.08f, 1.23f, 1.23f, 1.38f, 1.38f, 1.54f, 1.54f};
     public static float[] samples = new float[16];
     public static bool[] illusions = new bool[16];
 

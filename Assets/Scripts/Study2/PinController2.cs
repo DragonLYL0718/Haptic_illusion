@@ -27,7 +27,7 @@ public class PinController2 : MonoBehaviour
     public float angle;
     private float prevAngle = 0;
     //private float prevAngle;
-    [Range(1, 1.6f)]
+    [Range(1, 1.54f)]
     public float scale;
 
     public GameObject sphere;
@@ -63,7 +63,7 @@ public class PinController2 : MonoBehaviour
     }
     public InputMode inputMode;
 
-    private readonly Vector3 sphereStartScale = new Vector3(6, 6, 6);
+    private readonly Vector3 sphereStartScale = new Vector3(6.5f, 6.5f, 6.5f);
 
     private string filename;
     private TextWriter tw;
@@ -83,6 +83,7 @@ public class PinController2 : MonoBehaviour
         ChooseGeometry();
         Retarget();
         RecordFoot();
+        //Debug.Log("1");
     }
 
     //Initialize floor and all of floor's sub-objects
@@ -167,10 +168,17 @@ public class PinController2 : MonoBehaviour
         rod.SetActive(false);
         sphere.SetActive(true);
 
-        if(inputMode == InputMode.Automatic)
-            sphere.transform.localScale = sphereStartScale;
+        if (inputMode == InputMode.Automatic)
+        {
+            scale = Randomize2.samples[SurveySystem2.number];
+
+            if (!Randomize2.illusions[SurveySystem2.number])
+                sphere.transform.localScale = sphereStartScale * scale/* / 2*/;
+            else
+                sphere.transform.localScale = sphereStartScale;
+        }
         else
-            sphere.transform.localScale = sphereStartScale * scale/* / 2*/;
+            sphere.transform.localScale = sphereStartScale * scale;
     }
 
     //Rod
@@ -179,8 +187,10 @@ public class PinController2 : MonoBehaviour
         sphere.SetActive(false);
         rod.SetActive(true);
 
-        if (inputMode == InputMode.Automatic)
+        if (inputMode == InputMode.Automatic && !Randomize2.illusions[SurveySystem2.number])
             angle = Randomize2.samples[SurveySystem2.number];
+        if (inputMode == InputMode.Automatic && Randomize2.illusions[SurveySystem2.number])
+            angle = 0;
 
         float newLength = RodStartX / Mathf.Cos(Mathf.Deg2Rad * angle);
 
@@ -292,10 +302,10 @@ public class PinController2 : MonoBehaviour
     //Record which part of foot contact the Sphere or Rod
     private void RecordFoot()
     {
-        RecordTime += Time.deltaTime;
-
         if (SurveySystem2.RecordFlag)
         {
+            RecordTime += Time.deltaTime;
+
             if (type == RetargetingType.ScalingUp)
                 RecordScaleUpFoot();
             else
@@ -312,9 +322,9 @@ public class PinController2 : MonoBehaviour
         int[] soleHit = new int[7];
 
         if (Randomize2.illusions[SurveySystem2.number])
-            ContactDistant = 0.3f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
+            ContactDistant = 0.325f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
         else
-            ContactDistant = 0.3f * scale * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
+            ContactDistant = 0.325f * scale * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
 
         for(int i = 0; i < 6; i++) 
         {
@@ -330,7 +340,7 @@ public class PinController2 : MonoBehaviour
             + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
         tw.Close();
 
-        Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+        //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
     }
 
     //Rod
@@ -352,7 +362,7 @@ public class PinController2 : MonoBehaviour
             + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
         tw.Close();
 
-        Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+        //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
     }
 
     //Sphere
@@ -370,7 +380,6 @@ public class PinController2 : MonoBehaviour
         Vector3 ReferencePoint = floor.transform.InverseTransformPoint(sole.transform.GetChild(0).GetChild(i).position);
         if(ReferencePoint.y < 1f + DeltaRotation && ReferencePoint.x < 5 + DeltaRotation && ReferencePoint.x > -5 - DeltaRotation)
         {
-            Debug.Log("1");
             if (Randomize2.illusions[SurveySystem2.number])
             {
                 if(ReferencePoint.z > -(5 + DeltaRotation) && ReferencePoint.z < -(4.5 - DeltaRotation))

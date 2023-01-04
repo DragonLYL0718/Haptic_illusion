@@ -158,7 +158,7 @@ public class SurveySystem2 : MonoBehaviour
             int sampleNumber = trialNumber % 2 == 0 ? (trialNumber / 2) : (trialNumber / 2 + 1);
 
             int total = Randomize2.samples.Length / 2;
-            trialNumberText.text = (sampleNumber + "/" + total);
+            trialNumberText.text = (sampleNumber + "/" + total + ":" + (trialNumber%2));
         }
         else
         {
