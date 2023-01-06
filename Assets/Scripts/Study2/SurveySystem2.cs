@@ -47,6 +47,8 @@ public class SurveySystem2 : MonoBehaviour
 
     public GameObject trialBox;
     public TextMeshProUGUI trialNumberText;
+    public GameObject TrialOptionBox;
+    public TextMeshProUGUI TrialOptionText;
 
     public GameObject waitingBox;
     public TextMeshProUGUI waitingBoxText;
@@ -70,6 +72,10 @@ public class SurveySystem2 : MonoBehaviour
     private XML2 xmlManager;
     private UserDatabase2 userDatabase;
 
+    public float timer = 60f;
+    [HideInInspector]
+    public static float oneRoundTime;
+
     //AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -80,6 +86,7 @@ public class SurveySystem2 : MonoBehaviour
 
         totalTime = 0;
         oneTrialTime = timeRemaining;
+        oneRoundTime = timer;
         timeIsRunning = true;
         inputEnabled = false;
 
@@ -102,6 +109,7 @@ public class SurveySystem2 : MonoBehaviour
             {
                 //Debug.Log("2");
                 trialBox.SetActive(true);
+                TrialOptionBox.SetActive(true);
                 instructionBox.SetActive(true);
 
                 //when timer is active, the dialogue boxes are inactive
@@ -109,12 +117,13 @@ public class SurveySystem2 : MonoBehaviour
                 secondBox.SetActive(false);
                 thirdBox.SetActive(false);
 
-                if (timeRemaining > 10.0f)
+                if (timeRemaining > 0)
                 {
                     //Debug.Log("3");
                     waitingBoxText.text = "WAIT";
                     waitingBoxText.color = Color.red;
                     instructionBoxText.text = "Please, get into the starting position";
+                    timeRemaining -= Time.fixedDeltaTime;
                     isWaiting = true;
                 }
                 else
@@ -122,20 +131,14 @@ public class SurveySystem2 : MonoBehaviour
                     //Debug.Log("4");
                     RecordFlag = true;
                     instructionBoxText.text = "Please, explore the virtual object from right to left";
-                    waitingBoxText.text = "GO";
+                    waitingBoxText.text = ((int)timer + "s");
+                    timer -= Time.fixedDeltaTime;
                     waitingBoxText.color = Color.black;
+                    timeRemaining = 0;
                     isWaiting = false;
                 }
 
-                //if there is still time remainiing, continue subtracting
-                if (timeRemaining > 0)
-                {
-                    //Debug.Log("5");
-                    timeRemaining -= Time.fixedDeltaTime;
-                }
-
-                //when time is up, play the beep sound, set remaining time to 0, enable input
-                else
+                if(timer <0)
                 {
                     //Debug.Log("6");
                     // audioSource.Play();
@@ -157,12 +160,15 @@ public class SurveySystem2 : MonoBehaviour
         {
             int sampleNumber = trialNumber % 2 == 0 ? (trialNumber / 2) : (trialNumber / 2 + 1);
 
-            int total = Randomize2.samples.Length / 2;
-            trialNumberText.text = (sampleNumber + "/" + total + ":" + (trialNumber%2));
+            //int total = Randomize2.samples.Length / 2;
+            trialNumberText.text = ("Round " + sampleNumber);
+            TrialOptionText.text = ("Option " + (number % 2 + 1));
         }
         else
         {
             trialNumberText.text = "-";
+            TrialOptionText.text = "-";
+            instructionBoxText.text = "Thanks for participating, the experiment is over.";
         }
 
 
@@ -190,6 +196,7 @@ public class SurveySystem2 : MonoBehaviour
                 {
                     instructionBox.SetActive(false);
                     trialBox.SetActive(false);
+                    TrialOptionBox.SetActive(false);
                     waitingBox.SetActive(false);
                     firstBox.SetActive(true);
                 }
@@ -206,6 +213,7 @@ public class SurveySystem2 : MonoBehaviour
     //increment to move on to next sample value
     public void Increment()
     {
+        timer = oneRoundTime;
         if (number < Randomize2.samples.Length)
         {
             if(number % 2 == 1)
@@ -228,6 +236,7 @@ public class SurveySystem2 : MonoBehaviour
             //Debug.Log("saved");
             instructionBox.SetActive(false);
             trialBox.SetActive(false);
+            TrialOptionBox.SetActive(false);
         }
     }
 

@@ -3,13 +3,13 @@
   <dataList>
     <UserDataEntry2>
       <number>1</number>
-      <sample>1.37931025</sample>
+      <sample>1.85185182</sample>
       <IllusionSample>2</IllusionSample>
-      <timeWithIllusion>5.06666851</timeWithIllusion>
-      <timeWithoutIllusion>53.7344742</timeWithoutIllusion>
-      <answerTime>19.2221355</answerTime>
+      <timeWithIllusion>40.7887459</timeWithIllusion>
+      <timeWithoutIllusion>113.978844</timeWithoutIllusion>
+      <answerTime>13.1889992</answerTime>
       <firstAnswer>1</firstAnswer>
-      <secondAnswer>1</secondAnswer>
+      <secondAnswer>2</secondAnswer>
       <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
   </dataList>

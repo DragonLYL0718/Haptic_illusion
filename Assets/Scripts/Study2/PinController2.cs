@@ -12,7 +12,7 @@ public class PinController2 : MonoBehaviour
     //locate trackers
     public GameObject leftBottomCorner;
     public GameObject rightBottomCorner;
-    private bool ShoeCalibrated = false;
+    //private bool ShoeCalibrated = false;
     [Range(200, 300)]
     public float FootLength = 250;
 
@@ -92,12 +92,12 @@ public class PinController2 : MonoBehaviour
         if (!isInitialized)
         {
             //scale to match physical stick
-            distanceBetweenTrackers = Vector3.Distance(leftBottomCorner.transform.position, rightBottomCorner.transform.position);
+            distanceBetweenTrackers = Vector3.Distance(leftBottomCorner.transform.position, rightBottomCorner.transform.position)*3/2;
 
             //Redefine floor coordinates 
             floor.transform.localScale = new Vector3(0.1f * distanceBetweenTrackers, 0.1f * distanceBetweenTrackers, 0.1f * distanceBetweenTrackers);
             floor.transform.position = (leftBottomCorner.transform.position + rightBottomCorner.transform.position)/2 - 
-                                  Vector3.Cross((leftBottomCorner.transform.position - rightBottomCorner.transform.position), Vector3.up).normalized * distanceBetweenTrackers / 2;
+                                  2 * distanceBetweenTrackers * Vector3.Cross((leftBottomCorner.transform.position - rightBottomCorner.transform.position), Vector3.up).normalized/3;
             floor.transform.RotateAround(floor.transform.position, Vector3.up, + Vector3.SignedAngle(Vector3.right, (rightBottomCorner.transform.position - leftBottomCorner.transform.position), Vector3.up));
             RodStartPosition = rod.transform.localPosition;
 
@@ -120,23 +120,20 @@ public class PinController2 : MonoBehaviour
     //Calibrate the shoe and sole
     private void CalibratedShoe()
     {
-        if (!ShoeCalibrated)
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                float ScaleSize;
+            float ScaleSize;
 
-                ScaleSize = FootLength / (600f / 36f);
-                sole.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
-                ScaleSize = FootLength / (600f / 3.7f);
-                retargetedPosition.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
+            ScaleSize = FootLength / (600f / 36f);
+            sole.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
+            ScaleSize = FootLength / (600f / 3.7f);
+            retargetedPosition.transform.GetChild(0).localScale = new Vector3(ScaleSize, ScaleSize, ScaleSize);
 
-                sole.transform.GetChild(0).position = new Vector3(transform.position.x, floor.transform.position.y, transform.position.z);
-                sole.transform.GetChild(0).forward = -Vector3.Cross((leftBottomCorner.transform.position - rightBottomCorner.transform.position), Vector3.up);
+            sole.transform.GetChild(0).position = new Vector3(transform.position.x, floor.transform.position.y, transform.position.z);
+            sole.transform.GetChild(0).forward = -Vector3.Cross((leftBottomCorner.transform.position - rightBottomCorner.transform.position), Vector3.up);
 
-                ShoeCalibrated = true;
-            }
-        }     
+            //ShoeCalibrated = true;
+        }    
     }
 
     //Sphere, Rod
@@ -172,10 +169,7 @@ public class PinController2 : MonoBehaviour
         {
             scale = Randomize2.samples[SurveySystem2.number];
 
-            if (!Randomize2.illusions[SurveySystem2.number])
-                sphere.transform.localScale = sphereStartScale * scale/* / 2*/;
-            else
-                sphere.transform.localScale = sphereStartScale;
+            sphere.transform.localScale = sphereStartScale;
         }
         else
             sphere.transform.localScale = sphereStartScale * scale;
@@ -187,10 +181,8 @@ public class PinController2 : MonoBehaviour
         sphere.SetActive(false);
         rod.SetActive(true);
 
-        if (inputMode == InputMode.Automatic && !Randomize2.illusions[SurveySystem2.number])
+        if (inputMode == InputMode.Automatic)
             angle = Randomize2.samples[SurveySystem2.number];
-        if (inputMode == InputMode.Automatic && Randomize2.illusions[SurveySystem2.number])
-            angle = 0;
 
         float newLength = RodStartX / Mathf.Cos(Mathf.Deg2Rad * angle);
 
@@ -322,11 +314,11 @@ public class PinController2 : MonoBehaviour
         int[] soleHit = new int[7];
 
         if (Randomize2.illusions[SurveySystem2.number])
-            ContactDistant = 0.325f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
-        else
             ContactDistant = 0.325f * scale * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
+        else
+            ContactDistant = 0.325f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
 
-        for(int i = 0; i < 6; i++) 
+        for (int i = 0; i < 6; i++) 
         {
             if(IsSoleContact(i, ContactDistant))
             {
