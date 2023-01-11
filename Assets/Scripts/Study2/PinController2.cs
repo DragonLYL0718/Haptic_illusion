@@ -51,7 +51,7 @@ public class PinController2 : MonoBehaviour
         Rotation
     };
     [HideInInspector]
-    public RetargetingType type;
+    public static RetargetingType type;
 
     //virtual image (red ball) of actual position(white ball)
     public GameObject retargetedPosition;
