@@ -14,7 +14,8 @@ public class Randomize2 : MonoBehaviour
     private PinController2.Geometry  Geometry;
     private PinController2.RetargetingType retargetingType;
 
-    private bool isRandomized = false;
+    [HideInInspector]
+    public static bool isRandomized = false;
 
     private void Start()
     {

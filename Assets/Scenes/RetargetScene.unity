@@ -2543,6 +2543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pin: {fileID: 9073421203880606470, guid: aa9bfe8808a5d9441b89708f219f457a, type: 3}
+  DetectHeight: 0.1
 --- !u!1 &746013829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3870,9 +3871,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2958690607491799422, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3636924426714227332, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4342754981127827371, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4397610069945054866, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_RootOrder
@@ -3934,6 +3943,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5632044335483488495, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6260257881065735604, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3941,6 +3954,14 @@ PrefabInstance:
     - target: {fileID: 6995672858623716732, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231873189590376217, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734713035173020238, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
@@ -6023,7 +6044,7 @@ MonoBehaviour:
   floor: {fileID: 2051137369}
   sole: {fileID: 1539159486}
   RodStartPosition: {x: 0, y: 0, z: 0}
-  geometry: 1
+  geometry: 0
   retargetedPosition: {fileID: 1633122565}
   inputMode: 1
   DeltaScaleUp: 0.1

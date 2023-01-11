@@ -78,7 +78,8 @@ public class PinController2 : MonoBehaviour
     [Range(0, 1f)]
     public float DeltaRotation;
     private float RecordTime = 0;
-    private string StudyPart;
+    [HideInInspector]
+    public static string StudyPart;
 
     void Update()
     {
@@ -331,6 +332,7 @@ public class PinController2 : MonoBehaviour
     {
         if (SurveySystem2.RecordFlag)
         {
+            //Debug.Log("2");
             RecordTime += Time.deltaTime;
 
             if (type == RetargetingType.ScalingUp)
