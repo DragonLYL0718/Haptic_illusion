@@ -25,13 +25,17 @@ public class PinController2 : MonoBehaviour
     //Tilt rod by this angle
     [Range(0, 40)]
     public float angle;
-    private float prevAngle = 0;
+    private float ActualAngle;
+    private float prevAngle = 0f;
+    private float preActualAngle = 0f;
     //private float prevAngle;
     [Range(1, 1.54f)]
     public float scale;
 
     public GameObject sphere;
     public GameObject rod;
+    public GameObject ActualSphere;
+    public GameObject ActualRod;
     public GameObject floor;
     public GameObject sole;
     private readonly float RodStartX = 10;
@@ -151,7 +155,7 @@ public class PinController2 : MonoBehaviour
             //tilt rod
             case Geometry.Rod:
                 type = RetargetingType.Rotation;
-                ImitateRod();
+                ImitateRod(GetRod());
                 break;
 
             default:
@@ -163,28 +167,51 @@ public class PinController2 : MonoBehaviour
     private void ImitateSphere()
     {
         rod.SetActive(false);
+        ActualRod.SetActive(false);
         sphere.SetActive(true);
+        ActualSphere.SetActive(true);
 
         if (inputMode == InputMode.Automatic)
         {
             scale = Randomize2.samples[SurveySystem2.number];
-
             sphere.transform.localScale = sphereStartScale;
+
+            if (Randomize2.illusions[SurveySystem2.number])
+            {
+                ActualSphere.transform.localScale = sphereStartScale * scale;
+            }
+            else 
+            {
+                ActualSphere.transform.localScale = sphereStartScale;
+            }
         }
         else
             sphere.transform.localScale = sphereStartScale * scale;
     }
 
+    private GameObject GetRod()
+    {
+        return rod;
+    }
+
     //Rod
-    private void ImitateRod()
+    private void ImitateRod(GameObject rod)
     {
         sphere.SetActive(false);
+        ActualSphere.SetActive(false);
         rod.SetActive(true);
+        ActualRod.SetActive(true);
 
         if (inputMode == InputMode.Automatic)
             angle = Randomize2.samples[SurveySystem2.number];
 
+        if (inputMode == InputMode.Automatic && !Randomize2.illusions[SurveySystem2.number])
+            ActualAngle = Randomize2.samples[SurveySystem2.number];
+        else if(inputMode == InputMode.Automatic && Randomize2.illusions[SurveySystem2.number])
+            ActualAngle = 0f;
+
         float newLength = RodStartX / Mathf.Cos(Mathf.Deg2Rad * angle);
+        float newActualLength = RodStartX / Mathf.Cos(Mathf.Deg2Rad * ActualAngle);
 
         if (prevAngle != angle)
         {
@@ -192,9 +219,17 @@ public class PinController2 : MonoBehaviour
             rod.transform.localScale = new Vector3(newLength, rod.transform.localScale.y, rod.transform.localScale.z);
             rod.transform.RotateAround(floor.transform.TransformPoint(rod.transform.position), Vector3.up, angle);
             rod.transform.localPosition = RodStartPosition + (RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f) * Vector3.forward;
+            prevAngle = angle;
         }
-
-        prevAngle = angle;
+        
+        if(preActualAngle != ActualAngle)
+        {
+            ActualRod.transform.RotateAround(floor.transform.TransformPoint(ActualRod.transform.position), Vector3.up, -preActualAngle);
+            ActualRod.transform.localScale = new Vector3(newActualLength, ActualRod.transform.localScale.y, ActualRod.transform.localScale.z);
+            ActualRod.transform.RotateAround(floor.transform.TransformPoint(ActualRod.transform.position), Vector3.up, ActualAngle);
+            ActualRod.transform.localPosition = RodStartPosition + (RodStartX * Mathf.Tan(Mathf.Deg2Rad * ActualAngle) * 0.5f) * Vector3.forward;
+            preActualAngle = ActualAngle;
+        }
     }
 
     //Angle redirection
