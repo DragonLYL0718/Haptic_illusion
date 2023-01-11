@@ -96,8 +96,7 @@ public class PinRecord : MonoBehaviour
                 for (int j = 0; j < 19; j++)
                 {
                     Vector3 raycastOrigin = transform.TransformPoint(StartPoint2 + new Vector3(i * xScale, raycastHeight, j * zScale));
-                    RaycastHit hit;
-                    if (Physics.Raycast(raycastOrigin, Vector3.down, out hit, Mathf.Infinity, layerMask))
+                    if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, Mathf.Infinity, layerMask))
                     {
                         hitDistances[i, j] = raycastHeight - pinArray[i, j].transform.localScale.y / 2 - hit.distance;
                         if (hitDistances2[i, j] < 0)
@@ -118,8 +117,7 @@ public class PinRecord : MonoBehaviour
                 for (int j = 0; j < 20; j++)
                 {
                     Vector3 raycastOrigin = transform.TransformPoint(StartPoint + new Vector3(i * xScale, raycastHeight, j * zScale));
-                    RaycastHit hit;
-                    if (Physics.Raycast(raycastOrigin, Vector3.down, out hit, Mathf.Infinity, layerMask))
+                    if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, Mathf.Infinity, layerMask))
                     {
                         hitDistances[i, j] = raycastHeight - pinArray[i, j].transform.localScale.y / 2 - hit.distance;
                         if (hitDistances[i, j] < 0)

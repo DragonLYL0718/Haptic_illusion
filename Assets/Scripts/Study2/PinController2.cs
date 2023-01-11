@@ -105,7 +105,7 @@ public class PinController2 : MonoBehaviour
             userID = GetComponent<SurveySystem2>().userID;
             filename = "./UserLog/sole_data_" + userID + ".csv";
             tw = new StreamWriter(filename, false);
-            tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, No Touch");
+            tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, Total, No Touch");
             tw.Close();
 
             if (type == RetargetingType.ScalingUp)
@@ -327,9 +327,15 @@ public class PinController2 : MonoBehaviour
             }
         }
 
+        int NoTouch;
+        if (soleHit[6] == 0)
+            NoTouch = 1;
+        else
+            NoTouch = 0;
+
         tw = new StreamWriter(filename, true);
         tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + scale + "," + Randomize2.illusions[SurveySystem2.number] 
-            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
         tw.Close();
 
         //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
@@ -349,9 +355,15 @@ public class PinController2 : MonoBehaviour
             }
         }
 
+        int NoTouch;
+        if (soleHit[6] == 0)
+            NoTouch = 1;
+        else
+            NoTouch = 0;
+
         tw = new StreamWriter(filename, true);
         tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + angle + "," + Randomize2.illusions[SurveySystem2.number]
-            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
         tw.Close();
 
         //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);

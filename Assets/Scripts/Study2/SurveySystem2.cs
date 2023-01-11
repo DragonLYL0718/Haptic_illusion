@@ -279,7 +279,7 @@ public class SurveySystem2 : MonoBehaviour
         UserDataEntry2 dataEntry = new UserDataEntry2
         {
             number = (number + 1) / 2,
-            sample = (Randomize2.samples[number] >= 1 && Randomize2.samples[number] <= 2) ? (2 / Randomize2.samples[number]) : Randomize2.samples[number],
+            sample = Randomize2.samples[number],
             IllusionSample = (Randomize2.illusions[number]) ? 2 : 1,
             timeWithIllusion = timeWithIllusion,
             timeWithoutIllusion = timeWithoutIllusion,
