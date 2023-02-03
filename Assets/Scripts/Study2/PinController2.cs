@@ -69,15 +69,15 @@ public class PinController2 : MonoBehaviour
 
     private readonly Vector3 sphereStartScale = new Vector3(6.5f, 6.5f, 6.5f);
 
-    private string filename;
-    private TextWriter tw;
-    private string userID;
+    //private string filename;
+    //private TextWriter tw;
+    //private string userID;
 
     [Range(0, 1f)]
     public float DeltaScaleUp;
     [Range(0, 1f)]
     public float DeltaRotation;
-    private float RecordTime = 0;
+    //private float RecordTime = 0;
     [HideInInspector]
     public static string StudyPart;
 
@@ -87,7 +87,7 @@ public class PinController2 : MonoBehaviour
         CalibratedShoe();
         ChooseGeometry();
         Retarget();
-        RecordFoot();
+        //RecordFoot();
         //Debug.Log("1");
     }
 
@@ -107,11 +107,11 @@ public class PinController2 : MonoBehaviour
             RodStartPosition = rod.transform.localPosition;
 
             //Initialize CSV file
-            userID = GetComponent<SurveySystem2>().userID;
-            filename = "./UserLog/sole_data_" + userID + ".csv";
-            tw = new StreamWriter(filename, false);
-            tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, Total, No Touch");
-            tw.Close();
+            //userID = GetComponent<SurveySystem2>().userID;
+            //filename = "./UserLog/sole_data_" + userID + ".csv";
+            //tw = new StreamWriter(filename, false);
+            //tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, Total, No Touch");
+            //tw.Close();
 
             if (type == RetargetingType.ScalingUp)
                 StudyPart = "ScalingUp";
@@ -327,114 +327,114 @@ public class PinController2 : MonoBehaviour
         ChooseRedirectionType();
     }
 
-    //Record which part of foot contact the Sphere or Rod
-    private void RecordFoot()
-    {
-        if (SurveySystem2.RecordFlag)
-        {
-            //Debug.Log("2");
-            RecordTime += Time.deltaTime;
+    //    //Record which part of foot contact the Sphere or Rod
+    //    private void RecordFoot()
+    //    {
+    //        if (SurveySystem2.RecordFlag)
+    //        {
+    //            //Debug.Log("2");
+    //            RecordTime += Time.deltaTime;
 
-            if (type == RetargetingType.ScalingUp)
-                RecordScaleUpFoot();
-            else
-                RecordRotateFoot();
-        }
-        else
-            RecordTime = 0;
-    }
+    //            if (type == RetargetingType.ScalingUp)
+    //                RecordScaleUpFoot();
+    //            else
+    //                RecordRotateFoot();
+    //        }
+    //        else
+    //            RecordTime = 0;
+    //    }
 
-    //Shpere
-    private void RecordScaleUpFoot()
-    {
-        float ContactDistant;
-        int[] soleHit = new int[7];
+    //    //Shpere
+    //    private void RecordScaleUpFoot()
+    //    {
+    //        float ContactDistant;
+    //        int[] soleHit = new int[7];
 
-        if (Randomize2.illusions[SurveySystem2.number])
-            ContactDistant = 0.325f * scale * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
-        else
-            ContactDistant = 0.325f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
+    //        if (Randomize2.illusions[SurveySystem2.number])
+    //            ContactDistant = 0.325f * scale * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
+    //        else
+    //            ContactDistant = 0.325f * distanceBetweenTrackers + DeltaScaleUp * distanceBetweenTrackers;
 
-        for (int i = 0; i < 6; i++) 
-        {
-            if(IsSoleContact(i, ContactDistant))
-            {
-                soleHit[i] = 1;
-                soleHit[6]++;
-            }
-        }
+    //        for (int i = 0; i < 6; i++) 
+    //        {
+    //            if(IsSoleContact(i, ContactDistant))
+    //            {
+    //                soleHit[i] = 1;
+    //                soleHit[6]++;
+    //            }
+    //        }
 
-        int NoTouch;
-        if (soleHit[6] == 0)
-            NoTouch = 1;
-        else
-            NoTouch = 0;
+    //        int NoTouch;
+    //        if (soleHit[6] == 0)
+    //            NoTouch = 1;
+    //        else
+    //            NoTouch = 0;
 
-        tw = new StreamWriter(filename, true);
-        tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + scale + "," + Randomize2.illusions[SurveySystem2.number] 
-            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
-        tw.Close();
+    //        tw = new StreamWriter(filename, true);
+    //        tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + scale + "," + Randomize2.illusions[SurveySystem2.number] 
+    //            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
+    //        tw.Close();
 
-        //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
-    }
+    //        //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+    //    }
 
-    //Rod
-    private void RecordRotateFoot()
-    {
-        int[] soleHit = new int[7];
+    //    //Rod
+    //    private void RecordRotateFoot()
+    //    {
+    //        int[] soleHit = new int[7];
 
-        for (int i = 0; i < 6; i++)
-        {
-            if(IsSoleContact(i))
-            {
-                soleHit[i] = 1;
-                soleHit[6]++;
-            }
-        }
+    //        for (int i = 0; i < 6; i++)
+    //        {
+    //            if(IsSoleContact(i))
+    //            {
+    //                soleHit[i] = 1;
+    //                soleHit[6]++;
+    //            }
+    //        }
 
-        int NoTouch;
-        if (soleHit[6] == 0)
-            NoTouch = 1;
-        else
-            NoTouch = 0;
+    //        int NoTouch;
+    //        if (soleHit[6] == 0)
+    //            NoTouch = 1;
+    //        else
+    //            NoTouch = 0;
 
-        tw = new StreamWriter(filename, true);
-        tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + angle + "," + Randomize2.illusions[SurveySystem2.number]
-            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
-        tw.Close();
+    //        tw = new StreamWriter(filename, true);
+    //        tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + StudyPart + "," + angle + "," + Randomize2.illusions[SurveySystem2.number]
+    //            + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
+    //        tw.Close();
 
-        //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
-    }
+    //        //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+    //    }
 
-    //Sphere
-    private bool IsSoleContact(int i, float Distant)
-    {
-        if(Vector3.Distance(sole.transform.GetChild(0).GetChild(i).position, floor.transform.position) < Distant)
-            return true;
-        else
-            return false;
-    }
+    //    //Sphere
+    //    private bool IsSoleContact(int i, float Distant)
+    //    {
+    //        if(Vector3.Distance(sole.transform.GetChild(0).GetChild(i).position, floor.transform.position) < Distant)
+    //            return true;
+    //        else
+    //            return false;
+    //    }
 
-    //Rod
-    private bool IsSoleContact(int i)
-    {
-        Vector3 ReferencePoint = floor.transform.InverseTransformPoint(sole.transform.GetChild(0).GetChild(i).position);
-        if(ReferencePoint.y < 1f + DeltaRotation && ReferencePoint.x < 5 + DeltaRotation && ReferencePoint.x > -5 - DeltaRotation)
-        {
-            if (Randomize2.illusions[SurveySystem2.number])
-            {
-                if(ReferencePoint.z > -(5 + DeltaRotation) && ReferencePoint.z < -(4.5 - DeltaRotation))
-                    return true;
-            }
-            else
-            {
-                float RelativeLength = -5 + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f;
-                if(ReferencePoint.z > RelativeLength - 0.5 - DeltaRotation - ReferencePoint.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
-                    ReferencePoint.z < RelativeLength + 0.5 + DeltaRotation - ReferencePoint.x * Mathf.Tan(Mathf.Deg2Rad * angle))
-                    return true;
-            }
-        }
+    //    //Rod
+    //    private bool IsSoleContact(int i)
+    //    {
+    //        Vector3 ReferencePoint = floor.transform.InverseTransformPoint(sole.transform.GetChild(0).GetChild(i).position);
+    //        if(ReferencePoint.y < 1f + DeltaRotation && ReferencePoint.x < 5 + DeltaRotation && ReferencePoint.x > -5 - DeltaRotation)
+    //        {
+    //            if (Randomize2.illusions[SurveySystem2.number])
+    //            {
+    //                if(ReferencePoint.z > -(5 + DeltaRotation) && ReferencePoint.z < -(4.5 - DeltaRotation))
+    //                    return true;
+    //            }
+    //            else
+    //            {
+    //                float RelativeLength = -5 + RodStartX * Mathf.Tan(Mathf.Deg2Rad * angle) * 0.5f;
+    //                if(ReferencePoint.z > RelativeLength - 0.5 - DeltaRotation - ReferencePoint.x * Mathf.Tan(Mathf.Deg2Rad * angle) &&
+    //                    ReferencePoint.z < RelativeLength + 0.5 + DeltaRotation - ReferencePoint.x * Mathf.Tan(Mathf.Deg2Rad * angle))
+    //                    return true;
+    //            }
+    //        }
 
-        return false;
-    }
+    //        return false;
+    //    }
 }

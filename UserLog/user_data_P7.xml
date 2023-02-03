@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<UserDatabase2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dataList>
+    <UserDataEntry2>
+      <number>1</number>
+      <sample>1.54</sample>
+      <IllusionSample>1</IllusionSample>
+      <timeWithIllusion>0</timeWithIllusion>
+      <timeWithoutIllusion>17.57781</timeWithoutIllusion>
+      <answerTime>11.9556494</answerTime>
+      <firstAnswer>2</firstAnswer>
+      <secondAnswer>2</secondAnswer>
+      <thirdAnswer>1</thirdAnswer>
+    </UserDataEntry2>
+  </dataList>
+</UserDatabase2>

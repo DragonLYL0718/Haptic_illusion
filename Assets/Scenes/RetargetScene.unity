@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 280592027}
   - component: {fileID: 280592026}
   - component: {fileID: 280592025}
-  m_Layer: 7
+  m_Layer: 4
   m_Name: ActualRod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,7 +1248,7 @@ GameObject:
   - component: {fileID: 323990333}
   - component: {fileID: 323990332}
   - component: {fileID: 323990331}
-  m_Layer: 7
+  m_Layer: 4
   m_Name: ActualSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2543,7 +2543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pin: {fileID: 9073421203880606470, guid: aa9bfe8808a5d9441b89708f219f457a, type: 3}
-  DetectHeight: 0.1
+  DetectHeight: 0.05
 --- !u!1 &746013829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,7 +3305,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928543135}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3873,7 +3873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958690607491799422, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3636924426714227332, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Enabled
@@ -3881,7 +3881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4342754981127827371, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4397610069945054866, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_RootOrder
@@ -3945,7 +3945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5632044335483488495, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6260257881065735604, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Enabled
@@ -3957,11 +3957,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8231873189590376217, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8734713035173020238, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22470a84a77726b4ba54f9332e17b73a, type: 3}
@@ -6281,7 +6281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 4
+  index: 1
   origin: {fileID: 0}
 --- !u!1 &1689972422
 GameObject:
@@ -6337,7 +6337,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689972422}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6391,7 +6391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 6
+  index: 3
   origin: {fileID: 0}
 --- !u!1 &1745222906
 GameObject:
@@ -7311,7 +7311,7 @@ GameObject:
   - component: {fileID: 2051137371}
   - component: {fileID: 2051137370}
   - component: {fileID: 2051137375}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

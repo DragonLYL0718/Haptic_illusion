@@ -69,15 +69,13 @@ public class Randomize2 : MonoBehaviour
             int r = Random.Range(1, 20);
             if (r < 11)
             {
-                illusions[2 * i] = true;
+                illusions[2 * i] = false;
                 illusions[2 * i + 1] = false;
-                //illusions[2 * i + 1] = true;
             }
             else
             {
                 illusions[2 * i] = false;
-                //illusions[2 * i] = true;
-                illusions[2 * i + 1] = true;
+                illusions[2 * i + 1] = false;
             }
         }
     }
