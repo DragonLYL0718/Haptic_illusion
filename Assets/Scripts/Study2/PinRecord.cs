@@ -11,9 +11,10 @@ public class PinRecord : MonoBehaviour
     private readonly float xScale = 0.5f;
     private readonly float zScale = 0.5f;
     public readonly float raycastHeight = 6f;
-    private readonly Vector3 StartPoint = new Vector3(-4.75f, 0f, -4.75f);
+    private Vector3 StartPoint = new Vector3(-4.75f, 0f, -4.75f);
 
     public GameObject pin;
+    public GameObject floor;
 
     private float[,] hitDistances;
     private GameObject[,] pinArray;
@@ -26,8 +27,10 @@ public class PinRecord : MonoBehaviour
 
     private float ratio = 6f / 0.9f;
 
-    [Range(0f, 1f)]
+    [Range(0f, 2f)]
     public float DetectHeight;
+    [Range(0f, 2f)]
+    public float AdjustHeight;
     private float max = 0;
 
     private string Pinfilename;
@@ -42,6 +45,8 @@ public class PinRecord : MonoBehaviour
     private int[] layerMasks = new int[6];
     private readonly string[] layers = { "SoleA", "SoleB", "SoleC", "SoleD", "SoleE", "SoleF" };
     int layerMask;
+
+    //public GameObject floor;
 
     ////Start is called before the first frame update
     //void Start()
@@ -99,12 +104,13 @@ public class PinRecord : MonoBehaviour
 
     private void CreatePinArray()
     {
-        //Debug.Log("3");
+        ////Debug.Log("3");
         //if (IsInstantiate == 2)
         //{
-            //Debug.Log("2");
-            if (PreSample != Randomize2.samples[SurveySystem2.number] || PreIllusion != Randomize2.illusions[SurveySystem2.number])
+        //    //Debug.Log("2");
+            if ((PreSample != Randomize2.samples[SurveySystem2.number] || PreIllusion != Randomize2.illusions[SurveySystem2.number]) && PinController2.isInitialized)
             {
+                //Debug.Log("4");
                 PreSample = Randomize2.samples[SurveySystem2.number];
                 PreIllusion = Randomize2.illusions[SurveySystem2.number];
                 StartRaycastHeight();
@@ -115,7 +121,7 @@ public class PinRecord : MonoBehaviour
 
     private void SetPinHeight(GameObject pin, float height)
     {
-        pin.transform.localPosition = new Vector3(pin.transform.localPosition.x, height, pin.transform.localPosition.z);
+        pin.transform.position = transform.TransformPoint(new Vector3(pin.transform.localPosition.x, height, pin.transform.localPosition.z));
     }
 
     //Copy pin
@@ -134,34 +140,40 @@ public class PinRecord : MonoBehaviour
     private void StartRaycastHeight()
     {
         int layerMask = 1 << 4;
+        int num = 0;
+        bool ChangeFlag = false;
 
-
-        for (int i = 0; i < 20; i++)
-            for (int j = 0; j < 20; j++)
-            {
-                Vector3 raycastOrigin = transform.TransformPoint(StartPoint + new Vector3(i * xScale, raycastHeight, j * zScale));
-                if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, Mathf.Infinity, layerMask))
+        do
+        {
+            ChangeFlag = false;
+            for (int i = 0; i < 20; i++)
+                for (int j = 0; j < 20; j++)
                 {
-                    hitDistances[i, j] = raycastHeight - hit.distance * ratio - 0.2f;
-                    //Debug.Log("Pin: " + hitDistances[i, j]);
-                    if (hitDistances[i, j] < -0.2f)
+                    Vector3 raycastOrigin = gameObject.transform.TransformPoint(StartPoint + new Vector3(i * xScale, raycastHeight, j * zScale));
+                    if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, Mathf.Infinity, layerMask))
                     {
-                        hitDistances[i, j] = -0.2f;
+                        hitDistances[i, j] = raycastHeight - hit.distance * ratio - AdjustHeight;
+                        //Debug.Log("Pin: " + hitDistances[i, j]);
+                        if (hitDistances[i, j] < -0.1f)
+                        {
+                            hitDistances[i, j] = -0.1f;
+                        }
+                        //Debug.DrawRay(raycastOrigin, transform.TransformDirection(Vector3.down) * hit.distance, Color.red);
                     }
-                    //Debug.DrawRay(raycastOrigin, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-                }
-                else
-                {
-                    hitDistances[i, j] = 0;
-                }
+                    else
+                    {
+                        hitDistances[i, j] = 0;
+                    }
 
-                if (hit.distance > max)
-                {
-                    max = hit.distance;
-                    //Debug.Log("Max: " + max);
-                    ratio = 6f / max;
+                    if (hit.distance > max)
+                    {
+                        max = hit.distance;
+                        ratio = raycastHeight / max;
+                        //Debug.Log((num++) + "-Max: " + max + "," + ratio);
+                        ChangeFlag = true;
+                    }
                 }
-            }
+        } while(ChangeFlag);
         //Debug.Log(layerMask);
     }
 
@@ -188,9 +200,11 @@ public class PinRecord : MonoBehaviour
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 20; j++)
                 {
-                    if (hitDistances[i,j] > 0)
+                    if (hitDistances[i, j] > 0)
                     {
-                        Vector3 raycastOrigin = transform.TransformPoint(StartPoint + new Vector3(i * xScale, hitDistances[i, j], j * zScale));
+                        //Debug.Log("Ray");
+                        Vector3 raycastOrigin = gameObject.transform.TransformPoint(StartPoint + new Vector3(i * xScale, hitDistances[i, j], j * zScale));
+                        //pinArray[i, j].transform.position = raycastOrigin;
                         if (Physics.Raycast(raycastOrigin, Vector3.up, out RaycastHit hit, /*Mathf.Infinity*/DetectHeight, layerMask))
                         {
                             PinHit[i, j] = 1;
@@ -201,12 +215,16 @@ public class PinRecord : MonoBehaviour
                                 if (hit.collider.gameObject.layer == layerMasks[k])
                                 {
                                     soleHit[k] = 1;
+                                    //Debug.DrawRay(raycastOrigin, Vector3.up * hit.distance, Color.red, 10f);
                                 }
                             }
+                            //Debug.DrawRay(raycastOrigin, transform.TransformDirection(Vector3.up) * hit.distance, Color.red);
                         }
                         else
                             PinHit[i, j] = 0;
+                        //Debug.DrawRay(raycastOrigin, Vector3.up * hit.distance, Color.red, 0.5f);
                     }
+                    //else Debug.Log("No Ray");
                 }
             soleHit[6] = soleHit[0] + soleHit[1] + soleHit[2] + soleHit[3] + soleHit[4] + soleHit[5];
 
@@ -225,6 +243,7 @@ public class PinRecord : MonoBehaviour
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 20; j++)
                     tw.Write("," + PinHit[i, j]);
+            //tw.Write("," + hitDistances[i, j]);
             tw.Write("," + TotalPin + "," + NoTouch);
             tw.Write("\r\n");
             tw.Close();

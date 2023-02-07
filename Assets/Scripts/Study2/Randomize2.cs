@@ -70,11 +70,11 @@ public class Randomize2 : MonoBehaviour
             if (r < 11)
             {
                 illusions[2 * i] = false;
-                illusions[2 * i + 1] = false;
+                illusions[2 * i + 1] = true;
             }
             else
             {
-                illusions[2 * i] = false;
+                illusions[2 * i] = true;
                 illusions[2 * i + 1] = false;
             }
         }

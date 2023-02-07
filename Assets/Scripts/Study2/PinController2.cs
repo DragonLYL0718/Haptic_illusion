@@ -18,7 +18,7 @@ public class PinController2 : MonoBehaviour
 
     private float distanceBetweenTrackers;
 
-    private bool isInitialized = false;
+    static public bool isInitialized = false;
 
     //Move one pin
     //public float interval;
@@ -36,6 +36,8 @@ public class PinController2 : MonoBehaviour
     public GameObject rod;
     public GameObject ActualSphere;
     public GameObject ActualRod;
+    //[HideInInspector]
+    //public bool HaveChange = false;
     public GameObject floor;
     public GameObject sole;
     private readonly float RodStartX = 10;
