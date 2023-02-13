@@ -43,6 +43,11 @@ public class PinController2 : MonoBehaviour
     private readonly float RodStartX = 10;
     [SerializeField]
     private Vector3 RodStartPosition;
+    public enum Shoe
+    {
+        Right,
+        Left
+    }
 
     public enum Geometry
     {
@@ -118,7 +123,7 @@ public class PinController2 : MonoBehaviour
             if (type == RetargetingType.ScalingUp)
                 StudyPart = "ScalingUp";
             else
-                StudyPart = "Rotation";
+                StudyPart = "Redirection";
 
             isInitialized = true;
         }

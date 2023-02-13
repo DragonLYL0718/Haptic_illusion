@@ -82,7 +82,7 @@ public class PinRecord : MonoBehaviour
         {
             ActualPosition = GameObject.Find("ActualPosition");
             userID = ActualPosition.GetComponent<SurveySystem2>().userID;
-            Pinfilename = "./UserLog/pin_data_" + userID + ".csv";
+            Pinfilename = "./UserLog/pin_data_" + userID + "_" + PinController2.StudyPart + ".csv";
             tw = new StreamWriter(Pinfilename, false);
             tw.Write("Time, Trial Number, Study Part, Sample, Illusion Sample");
             for (int i = 0; i < 20; i++)
@@ -92,7 +92,7 @@ public class PinRecord : MonoBehaviour
             tw.Write("\r\n");
             tw.Close();
 
-            Solefilename = "./UserLog/sole_data_" + userID + ".csv";
+            Solefilename = "./UserLog/sole_data_" + userID + "_" + PinController2.StudyPart + ".csv";
             tw = new StreamWriter(Solefilename, false);
             tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, Total, No Touch");
             tw.Close();
