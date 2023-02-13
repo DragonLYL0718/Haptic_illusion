@@ -236,7 +236,7 @@ public class PinRecord : MonoBehaviour
             tw.WriteLine(RecordTime + "," + (SurveySystem2.number + 1) + "," + PinController2.StudyPart + "," + Randomize2.samples[SurveySystem2.number] + "," + Randomize2.illusions[SurveySystem2.number]
                 + "," + soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6] + "," + NoTouch);
             tw.Close();
-            Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
+            //Debug.Log(soleHit[0] + "," + soleHit[1] + "," + soleHit[2] + "," + soleHit[3] + "," + soleHit[4] + "," + soleHit[5] + "," + soleHit[6]);
 
             tw = new StreamWriter(Pinfilename, true);
             tw.Write(RecordTime + "," + (SurveySystem2.number + 1) + "," + PinController2.StudyPart + "," + Randomize2.samples[SurveySystem2.number] + "," + Randomize2.illusions[SurveySystem2.number]);
