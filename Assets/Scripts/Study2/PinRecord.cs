@@ -78,11 +78,12 @@ public class PinRecord : MonoBehaviour
 
     void Init()
     {
-        if(!InitFlag)
+        if(!InitFlag && PinController2.isInitialized)
         {
             ActualPosition = GameObject.Find("ActualPosition");
             userID = ActualPosition.GetComponent<SurveySystem2>().userID;
             Pinfilename = "./UserLog/pin_data_" + userID + "_" + PinController2.StudyPart + ".csv";
+            Debug.Log(PinController2.StudyPart);
             tw = new StreamWriter(Pinfilename, false);
             tw.Write("Time, Trial Number, Study Part, Sample, Illusion Sample");
             for (int i = 0; i < 20; i++)

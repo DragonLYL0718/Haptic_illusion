@@ -43,11 +43,6 @@ public class PinController2 : MonoBehaviour
     private readonly float RodStartX = 10;
     [SerializeField]
     private Vector3 RodStartPosition;
-    public enum Shoe
-    {
-        Right,
-        Left
-    }
 
     public enum Geometry
     {
@@ -66,6 +61,12 @@ public class PinController2 : MonoBehaviour
 
     //virtual image (red ball) of actual position(white ball)
     public GameObject retargetedPosition;
+    public enum Shoe
+    {
+        Right,
+        Left
+    }
+    public Shoe shoe;
 
     public enum InputMode
     {
@@ -124,6 +125,10 @@ public class PinController2 : MonoBehaviour
                 StudyPart = "ScalingUp";
             else
                 StudyPart = "Redirection";
+
+            if(shoe == Shoe.Left)retargetedPosition.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+            else retargetedPosition.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+
 
             isInitialized = true;
         }
