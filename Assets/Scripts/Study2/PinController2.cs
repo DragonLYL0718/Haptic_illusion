@@ -121,7 +121,7 @@ public class PinController2 : MonoBehaviour
             //tw.WriteLine("Time, Trial Number, Study Part, Sample, Illusion Sample, Sole A, Sole B, Sole C, Sole D, Sole E, Sole F, Total, No Touch");
             //tw.Close();
 
-            if (type == RetargetingType.ScalingUp)
+            if (geometry == Geometry.Sphere)
                 StudyPart = "ScalingUp";
             else
                 StudyPart = "Redirection";

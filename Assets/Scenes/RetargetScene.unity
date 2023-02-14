@@ -2509,7 +2509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pin: {fileID: 9073421203880606470, guid: aa9bfe8808a5d9441b89708f219f457a, type: 3}
   floor: {fileID: 2051137369}
-  DetectHeight: 0.09
+  DetectHeight: 0.12
   AdjustHeight: 0.7
 --- !u!1 &746013829
 GameObject:
@@ -3240,7 +3240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 4
+  index: 3
   origin: {fileID: 0}
 --- !u!1 &977274263
 GameObject:
@@ -5054,7 +5054,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1633122569}
-  - component: {fileID: 1633122568}
   - component: {fileID: 1633122567}
   - component: {fileID: 1633122566}
   m_Layer: 0
@@ -5118,14 +5117,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1633122568
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633122565}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1633122569
 Transform:
   m_ObjectHideFlags: 0
@@ -5953,9 +5944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a166d0fba0f654847ab595c8b897f02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userID: P1
+  userID: Test
   totalTime: 0
-  timeRemaining: 10
+  timeRemaining: 30
   trialNumber: 0
   trialBox: {fileID: 1874332569}
   trialNumberText: {fileID: 1664879783}
@@ -5998,7 +5989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftBottomCorner: {fileID: 928543135}
   rightBottomCorner: {fileID: 1689972422}
-  FootLength: 255
+  FootLength: 270
   angle: 0
   scale: 1
   sphere: {fileID: 1067814525}
@@ -6008,7 +5999,7 @@ MonoBehaviour:
   floor: {fileID: 2051137369}
   sole: {fileID: 1539159486}
   RodStartPosition: {x: 0, y: 0, z: 0}
-  geometry: 0
+  geometry: 1
   retargetedPosition: {fileID: 1633122565}
   shoe: 0
   inputMode: 1
@@ -6246,7 +6237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 6
+  index: 2
   origin: {fileID: 0}
 --- !u!1 &1689972422
 GameObject:
