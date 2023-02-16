@@ -3,91 +3,91 @@
   <dataList>
     <UserDataEntry2>
       <number>1</number>
-      <sample>10</sample>
-      <IllusionSample>2</IllusionSample>
-      <timeWithIllusion>24.2995453</timeWithIllusion>
-      <timeWithoutIllusion>23.9440155</timeWithoutIllusion>
-      <answerTime>7.12225151</answerTime>
-      <firstAnswer>2</firstAnswer>
+      <sample>40</sample>
+      <IllusionSample>1</IllusionSample>
+      <timeWithIllusion>29.7658157</timeWithIllusion>
+      <timeWithoutIllusion>20.08874</timeWithoutIllusion>
+      <answerTime>9.211168</answerTime>
+      <firstAnswer>1</firstAnswer>
       <secondAnswer>2</secondAnswer>
-      <thirdAnswer>2</thirdAnswer>
+      <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
     <UserDataEntry2>
       <number>2</number>
       <sample>40</sample>
-      <IllusionSample>2</IllusionSample>
-      <timeWithIllusion>34.0658569</timeWithIllusion>
-      <timeWithoutIllusion>23.3218384</timeWithoutIllusion>
-      <answerTime>5.911124</answerTime>
-      <firstAnswer>1</firstAnswer>
-      <secondAnswer>1</secondAnswer>
+      <IllusionSample>1</IllusionSample>
+      <timeWithIllusion>23.199625</timeWithIllusion>
+      <timeWithoutIllusion>22.5107861</timeWithoutIllusion>
+      <answerTime>7.25558662</answerTime>
+      <firstAnswer>2</firstAnswer>
+      <secondAnswer>2</secondAnswer>
       <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
     <UserDataEntry2>
       <number>3</number>
       <sample>20</sample>
-      <IllusionSample>1</IllusionSample>
-      <timeWithIllusion>21.599741</timeWithIllusion>
-      <timeWithoutIllusion>20.2776146</timeWithoutIllusion>
-      <answerTime>6.10001564</answerTime>
-      <firstAnswer>2</firstAnswer>
-      <secondAnswer>2</secondAnswer>
-      <thirdAnswer>2</thirdAnswer>
+      <IllusionSample>2</IllusionSample>
+      <timeWithIllusion>24.6661854</timeWithIllusion>
+      <timeWithoutIllusion>23.088522</timeWithoutIllusion>
+      <answerTime>11.211195</answerTime>
+      <firstAnswer>1</firstAnswer>
+      <secondAnswer>1</secondAnswer>
+      <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
     <UserDataEntry2>
       <number>4</number>
-      <sample>20</sample>
+      <sample>30</sample>
       <IllusionSample>2</IllusionSample>
-      <timeWithIllusion>22.3441315</timeWithIllusion>
-      <timeWithoutIllusion>25.0661564</timeWithoutIllusion>
-      <answerTime>7.822261</answerTime>
+      <timeWithIllusion>20.7553577</timeWithIllusion>
+      <timeWithoutIllusion>20.3331661</timeWithoutIllusion>
+      <answerTime>5.088891</answerTime>
       <firstAnswer>1</firstAnswer>
       <secondAnswer>1</secondAnswer>
       <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
     <UserDataEntry2>
       <number>5</number>
-      <sample>10</sample>
-      <IllusionSample>1</IllusionSample>
-      <timeWithIllusion>28.1659317</timeWithIllusion>
-      <timeWithoutIllusion>26.3549519</timeWithoutIllusion>
-      <answerTime>5.10000229</answerTime>
+      <sample>20</sample>
+      <IllusionSample>2</IllusionSample>
+      <timeWithIllusion>20.3331661</timeWithIllusion>
+      <timeWithoutIllusion>22.0552635</timeWithoutIllusion>
+      <answerTime>4.63332939</answerTime>
       <firstAnswer>1</firstAnswer>
-      <secondAnswer>1</secondAnswer>
+      <secondAnswer>2</secondAnswer>
       <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
     <UserDataEntry2>
       <number>6</number>
-      <sample>30</sample>
+      <sample>10</sample>
       <IllusionSample>2</IllusionSample>
-      <timeWithIllusion>20.2665043</timeWithIllusion>
-      <timeWithoutIllusion>35.9771576</timeWithoutIllusion>
-      <answerTime>5.133336</answerTime>
+      <timeWithIllusion>24.4106483</timeWithIllusion>
+      <timeWithoutIllusion>24.2328835</timeWithoutIllusion>
+      <answerTime>5.855568</answerTime>
+      <firstAnswer>1</firstAnswer>
+      <secondAnswer>2</secondAnswer>
+      <thirdAnswer>1</thirdAnswer>
+    </UserDataEntry2>
+    <UserDataEntry2>
+      <number>7</number>
+      <sample>10</sample>
+      <IllusionSample>2</IllusionSample>
+      <timeWithIllusion>22.0997047</timeWithIllusion>
+      <timeWithoutIllusion>20.4331589</timeWithoutIllusion>
+      <answerTime>5.33333874</answerTime>
       <firstAnswer>1</firstAnswer>
       <secondAnswer>1</secondAnswer>
       <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
     <UserDataEntry2>
-      <number>7</number>
+      <number>8</number>
       <sample>30</sample>
       <IllusionSample>1</IllusionSample>
-      <timeWithIllusion>29.4325066</timeWithIllusion>
-      <timeWithoutIllusion>23.2107353</timeWithoutIllusion>
-      <answerTime>5.05555725</answerTime>
-      <firstAnswer>2</firstAnswer>
+      <timeWithIllusion>22.5107861</timeWithIllusion>
+      <timeWithoutIllusion>20.8997917</timeWithoutIllusion>
+      <answerTime>9.366726</answerTime>
+      <firstAnswer>1</firstAnswer>
       <secondAnswer>2</secondAnswer>
-      <thirdAnswer>2</thirdAnswer>
-    </UserDataEntry2>
-    <UserDataEntry2>
-      <number>8</number>
-      <sample>40</sample>
-      <IllusionSample>1</IllusionSample>
-      <timeWithIllusion>24.9994946</timeWithIllusion>
-      <timeWithoutIllusion>20.2109528</timeWithoutIllusion>
-      <answerTime>3.3666594</answerTime>
-      <firstAnswer>2</firstAnswer>
-      <secondAnswer>2</secondAnswer>
-      <thirdAnswer>2</thirdAnswer>
+      <thirdAnswer>1</thirdAnswer>
     </UserDataEntry2>
   </dataList>
 </UserDatabase2>
