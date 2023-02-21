@@ -3240,7 +3240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 7
+  index: 2
   origin: {fileID: 0}
 --- !u!1 &977274263
 GameObject:
@@ -5944,7 +5944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a166d0fba0f654847ab595c8b897f02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userID: P16
+  userID: P2
   totalTime: 0
   timeRemaining: 15
   trialNumber: 0
@@ -5989,7 +5989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftBottomCorner: {fileID: 928543135}
   rightBottomCorner: {fileID: 1689972422}
-  FootLength: 300
+  FootLength: 270
   angle: 0
   scale: 1
   sphere: {fileID: 1067814525}
@@ -6001,7 +6001,7 @@ MonoBehaviour:
   RodStartPosition: {x: 0, y: 0, z: 0}
   geometry: 1
   retargetedPosition: {fileID: 1633122565}
-  shoe: 1
+  shoe: 0
   inputMode: 1
   DeltaScaleUp: 0.1
   DeltaRotation: 0.6
@@ -6237,7 +6237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 6
+  index: 1
   origin: {fileID: 0}
 --- !u!1 &1689972422
 GameObject:
@@ -6347,7 +6347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 5
+  index: 3
   origin: {fileID: 0}
 --- !u!1 &1745222906
 GameObject:
